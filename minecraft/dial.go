@@ -281,7 +281,7 @@ func (d Dialer) DialContextNetwork(ctx context.Context, network Network, address
 		d.IdentityData = identityData
 	}
 
-	if !d.DisablePortFollowing {
+	if !d.DisablePortFollowing && !strings.Contains(address, "://") {
 		if pong, err := network.PingContext(ctx, address); err == nil {
 			address = addressWithPongPort(pong, address)
 		}
